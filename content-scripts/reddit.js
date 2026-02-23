@@ -10,9 +10,26 @@
       return;
     }
     
-    const actionBar = post.querySelector('.Comment__actions') || 
-                      post.querySelector('[data-click-id="comment"]')?.parentElement;
-    if (!actionBar) return;
+    // Try multiple selectors for different Reddit layouts
+    let actionBar = 
+      post.querySelector('[data-testid="comment-action-bar"]') ||
+      post.querySelector('[data-testid="post-comment-action-bar"]') ||
+      post.querySelector('.Comment__actions') || 
+      post.querySelector('[slot="commentActionRow"]') ||
+      post.querySelector('div[style*="display: flex"][style*="gap"]');
+    
+    // If still not found, try finding any action bar with common Reddit buttons
+    if (!actionBar) {
+      const commentLink = post.querySelector('a[href*="/comments/"]');
+      if (commentLink) {
+        actionBar = commentLink.closest('div[style*="display"]');
+      }
+    }
+    
+    if (!actionBar) {
+      console.log('FastEngage: Could not find action bar for post', post);
+      return;
+    }
     
     const draftBtn = document.createElement('button');
     draftBtn.className = 'fastengage-draft-btn';
@@ -28,6 +45,9 @@
       font-weight: 600;
       cursor: pointer;
       transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
     `;
     
     draftBtn.addEventListener('mouseenter', () => {
@@ -48,16 +68,35 @@
   }
   
   function extractPostData(post) {
-    const titleElement = post.querySelector('h1') || post.querySelector('[data-testid="post-content"] h3');
-    const contentElement = post.querySelector('[data-click-id="text"]') || 
-                          post.querySelector('.Comment__body');
+    // Try multiple selectors for post title/content
+    const titleElement = 
+      post.querySelector('h1') || 
+      post.querySelector('[data-testid="post-content"] h3') ||
+      post.querySelector('[slot="title"]') ||
+      post.querySelector('h3');
     
-    const postText = titleElement ? titleElement.innerText : 
-                    (contentElement ? contentElement.innerText : '');
+    const contentElement = 
+      post.querySelector('[data-testid="post-content"] > div') ||
+      post.querySelector('[data-click-id="text"]') || 
+      post.querySelector('[slot="text-body"]') ||
+      post.querySelector('.Comment__body') ||
+      post.querySelector('[data-testid="comment"]');
     
-    const authorElement = post.querySelector('[data-testid="post_author_link"]') ||
-                         post.querySelector('._2tbHP6ZydRpjI44J3syuqC');
-    const author = authorElement ? authorElement.innerText : 'Unknown';
+    let postText = '';
+    if (titleElement) {
+      postText = titleElement.innerText;
+    } else if (contentElement) {
+      postText = contentElement.innerText;
+    }
+    
+    // Try to find author
+    const authorElement = 
+      post.querySelector('[data-testid="post_author_link"]') ||
+      post.querySelector('a[href*="/user/"]') ||
+      post.querySelector('[slot="authorName"]');
+    const author = authorElement ? authorElement.innerText.replace(/^u\//, '') : 'Unknown';
+    
+    console.log('FastEngage: Extracted Reddit post:', { postText: postText.substring(0, 100), author });
     
     return {
       platform: 'reddit',
@@ -83,8 +122,21 @@
   
   function observePosts() {
     const observer = new MutationObserver(() => {
-      const posts = document.querySelectorAll('[data-testid="post-container"]');
-      const comments = document.querySelectorAll('.Comment');
+      // Try multiple selectors for different Reddit versions
+      const posts = document.querySelectorAll(
+        '[data-testid="post-container"], ' +
+        'shreddit-post, ' +
+        '.Post, ' +
+        'article'
+      );
+      
+      const comments = document.querySelectorAll(
+        '[data-testid="comment"], ' +
+        'shreddit-comment, ' +
+        '.Comment'
+      );
+      
+      console.log(`FastEngage: Found ${posts.length} posts and ${comments.length} comments`);
       
       posts.forEach(post => addDraftButton(post));
       comments.forEach(comment => addDraftButton(comment));
@@ -95,10 +147,26 @@
       subtree: true
     });
     
-    const posts = document.querySelectorAll('[data-testid="post-container"]');
-    const comments = document.querySelectorAll('.Comment');
-    posts.forEach(post => addDraftButton(post));
-    comments.forEach(comment => addDraftButton(comment));
+    // Initial scan
+    setTimeout(() => {
+      const posts = document.querySelectorAll(
+        '[data-testid="post-container"], ' +
+        'shreddit-post, ' +
+        '.Post, ' +
+        'article'
+      );
+      
+      const comments = document.querySelectorAll(
+        '[data-testid="comment"], ' +
+        'shreddit-comment, ' +
+        '.Comment'
+      );
+      
+      console.log(`FastEngage: Initial scan - ${posts.length} posts and ${comments.length} comments`);
+      
+      posts.forEach(post => addDraftButton(post));
+      comments.forEach(comment => addDraftButton(comment));
+    }, 1000);
   }
   
   if (document.readyState === 'loading') {
