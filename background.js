@@ -83,7 +83,7 @@ async function handleGenerateReplies(data) {
     tone: 'confident'
   };
   
-  const model = settings.model || 'gpt-4o-mini';
+  const model = settings.model || 'gpt-4o';
   
   // Build prompt
   const prompt = buildPrompt(
@@ -159,7 +159,7 @@ Return ONLY valid JSON in this exact format:
   return { systemInstruction, userMessage };
 }
 
-async function generateWithAI(apiKey, prompt, model = 'gpt-4o-mini') {
+async function generateWithAI(apiKey, prompt, model = 'gpt-4o') {
   console.log(`FastEngage: Using model ${model}`);
   
   const response = await fetch('https://api.openai.com/v1/chat/completions', {

@@ -91,7 +91,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #1d9bf0;
+  border-color: #718096;
 }
 
 .compact-input {
@@ -136,22 +136,23 @@ textarea {
   flex: 1;
   padding: 8px;
   background: #f5f5f5;
-  border: 1px solid #e0e0e0;
+  border: none;
   border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  color: #666;
 }
 
 .profile-tab:hover {
-  background: #e8f3fc;
+  background: #e8e8e8;
+  color: #333;
 }
 
 .profile-tab.active {
-  background: #1d9bf0;
+  background: #2d3748;
   color: white;
-  border-color: #1d9bf0;
 }
 
 .profile-indicator {
@@ -179,40 +180,44 @@ textarea {
 }
 
 .btn-remove {
-  padding: 6px 10px;
-  background: #fff;
-  color: #ff4444;
-  border: 1px solid #ff4444;
+  padding: 4px 8px;
+  background: #f5f5f5;
+  color: #999;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 16px;
   transition: all 0.2s;
   white-space: nowrap;
+  line-height: 1;
+  font-weight: normal;
 }
 
 .btn-remove:hover {
-  background: #fff0f0;
+  background: #ffebee;
+  color: #d32f2f;
 }
 
 .btn-add {
   padding: 6px 12px;
-  background: white;
-  color: #1d9bf0;
-  border: 1px solid #1d9bf0;
+  background: #f5f5f5;
+  color: #666;
+  border: none;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .btn-add:hover {
-  background: #f0f8ff;
+  background: #e8e8e8;
+  color: #333;
 }
 
 .btn-primary {
   padding: 10px 20px;
-  background: #1d9bf0;
+  background: #2d3748;
   color: white;
   border: none;
   border-radius: 6px;
@@ -224,14 +229,14 @@ textarea {
 }
 
 .btn-primary:hover {
-  background: #1a8cd8;
+  background: #1a202c;
 }
 
 .btn-secondary {
   padding: 10px 20px;
-  background: white;
-  color: #1d9bf0;
-  border: 1px solid #1d9bf0;
+  background: #f5f5f5;
+  color: #666;
+  border: none;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 600;
@@ -240,7 +245,8 @@ textarea {
 }
 
 .btn-secondary:hover {
-  background: #f0f8ff;
+  background: #e8e8e8;
+  color: #333;
 }
 
 .actions {

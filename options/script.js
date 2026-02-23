@@ -134,7 +134,7 @@ function loadSettings() {
     apiKeyInput.value = result.apiKey || '';
     
     // Model
-    modelSelect.value = result.model || 'gpt-4o-mini';
+    modelSelect.value = result.model || 'gpt-4o';
     
     // Profiles
     if (result.profiles) {
@@ -180,7 +180,7 @@ function addVoiceRule(value = '') {
   div.className = 'voice-rule-item';
   div.innerHTML = `
     <input type="text" placeholder="e.g., Be direct and clear" value="${escapeHtml(value)}">
-    <button class="btn-remove" onclick="this.parentElement.remove()">Remove</button>
+    <button class="btn-remove" onclick="this.parentElement.remove()">×</button>
   `;
   voiceRulesContainer.appendChild(div);
 }
@@ -191,7 +191,7 @@ function addExampleReply(value = '') {
   div.className = 'example-reply-item';
   div.innerHTML = `
     <textarea placeholder="Paste one of your high-performing replies...">${escapeHtml(value)}</textarea>
-    <button class="btn-remove" onclick="this.parentElement.remove()">Remove</button>
+    <button class="btn-remove" onclick="this.parentElement.remove()">×</button>
   `;
   exampleRepliesContainer.appendChild(div);
 }

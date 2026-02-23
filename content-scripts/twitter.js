@@ -16,17 +16,17 @@
     const actionBar = tweet.querySelector('[role="group"]');
     if (!actionBar) return;
     
-    // Create draft button - small and minimal
+    // Create draft button - subtle and clean
     const draftBtn = document.createElement('button');
     draftBtn.className = 'fastengage-draft-btn';
     draftBtn.innerHTML = '⚡';
     draftBtn.title = 'Draft reply with FastEngage';
     draftBtn.style.cssText = `
-      background: transparent;
+      background: #e8f5fd;
       color: #1d9bf0;
-      border: 1px solid #1d9bf0;
+      border: none;
       border-radius: 4px;
-      padding: 2px 6px;
+      padding: 3px 7px;
       margin-left: 8px;
       font-size: 14px;
       cursor: pointer;
@@ -35,11 +35,11 @@
     `;
     
     draftBtn.addEventListener('mouseenter', () => {
-      draftBtn.style.background = '#e8f5ff';
+      draftBtn.style.background = '#d0ebf9';
     });
     
     draftBtn.addEventListener('mouseleave', () => {
-      draftBtn.style.background = 'transparent';
+      draftBtn.style.background = '#e8f5fd';
     });
     
     draftBtn.addEventListener('click', (e) => {

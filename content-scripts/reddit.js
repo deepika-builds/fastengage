@@ -63,11 +63,11 @@
     draftBtn.innerHTML = '⚡';
     draftBtn.title = 'Draft reply with FastEngage';
     draftBtn.style.cssText = `
-      background: transparent;
+      background: #fff4f0;
       color: #ff4500;
-      border: 1px solid #ff4500;
+      border: none;
       border-radius: 4px;
-      padding: 2px 6px;
+      padding: 3px 7px;
       margin-left: 8px;
       font-size: 14px;
       cursor: pointer;
@@ -79,11 +79,11 @@
     `;
     
     draftBtn.addEventListener('mouseenter', () => {
-      draftBtn.style.background = '#fff4f0';
+      draftBtn.style.background = '#ffe5d9';
     });
     
     draftBtn.addEventListener('mouseleave', () => {
-      draftBtn.style.background = 'transparent';
+      draftBtn.style.background = '#fff4f0';
     });
     
     draftBtn.addEventListener('click', (e) => {

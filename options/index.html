@@ -9,13 +9,13 @@
 <body>
   <div class="container">
     <header>
-      <h1>⚡ FastEngage Settings</h1>
+      <h1>⚡ FastEngage settings</h1>
       <p class="subtitle">Configure profiles for each platform</p>
     </header>
 
     <!-- API Configuration -->
     <div class="settings-section">
-      <h2>API Configuration</h2>
+      <h2>API configuration</h2>
       <div class="form-group">
         <label for="apiKey">OpenAI API Key *</label>
         <input type="password" id="apiKey" placeholder="sk-...">
@@ -25,14 +25,16 @@
       <div class="form-group">
         <label for="modelSelect">Model</label>
         <select id="modelSelect">
-          <option value="gpt-4o-mini">GPT-4o Mini (Fast & Cheap - Recommended)</option>
-          <option value="gpt-4o">GPT-4o (Best Quality, Slower)</option>
-          <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Fastest, Basic)</option>
+          <option value="gpt-4o">GPT-4o (Latest - Recommended)</option>
+          <option value="gpt-4o-mini">GPT-4o Mini (Fast & affordable)</option>
+          <option value="o1-mini">o1-mini (Advanced reasoning)</option>
+          <option value="o1-preview">o1-preview (Most capable)</option>
         </select>
         <p class="help-text">
-          <strong>gpt-4o-mini</strong>: ~$0.001/reply, 3-5 seconds<br>
-          <strong>gpt-4o</strong>: ~$0.01/reply, 5-10 seconds<br>
-          <strong>gpt-3.5-turbo</strong>: ~$0.0005/reply, 2-3 seconds
+          <strong>gpt-4o</strong>: Latest model, best balance of speed & quality<br>
+          <strong>gpt-4o-mini</strong>: Faster, more affordable (~$0.001/reply)<br>
+          <strong>o1-mini</strong>: Advanced reasoning for complex replies<br>
+          <strong>o1-preview</strong>: Most capable, slower (~$0.015/reply)
         </p>
       </div>
     </div>
@@ -55,7 +57,7 @@
       
       <!-- Authority Themes -->
       <div class="settings-section">
-        <h3>Authority Themes <span class="profile-indicator" id="currentProfile"></span></h3>
+        <h3>Authority themes <span class="profile-indicator" id="currentProfile"></span></h3>
         <p class="section-description">
           What do you want to be known for on this platform?
         </p>
@@ -72,7 +74,7 @@
 
       <!-- Voice Rules -->
       <div class="settings-section">
-        <h3>Voice Rules <span class="profile-indicator"></span></h3>
+        <h3>Voice rules <span class="profile-indicator"></span></h3>
         <p class="section-description">
           5-10 rules that capture your writing style
         </p>
@@ -82,7 +84,7 @@
 
       <!-- Example Replies -->
       <div class="settings-section">
-        <h3>Example Replies <span class="profile-indicator"></span></h3>
+        <h3>Example replies <span class="profile-indicator"></span></h3>
         <p class="section-description">
           5-10 of your best-performing replies
         </p>
@@ -106,8 +108,8 @@
 
     <!-- Actions -->
     <div class="actions">
-      <button id="saveBtn" class="btn-primary">Save Profile</button>
-      <button id="copyProfileBtn" class="btn-secondary">Copy to Other Profiles</button>
+      <button id="saveBtn" class="btn-primary">Save profile</button>
+      <button id="copyProfileBtn" class="btn-secondary">Copy to other profiles</button>
     </div>
 
     <div class="success-message" id="successMessage" style="display: none;">

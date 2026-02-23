@@ -53,7 +53,7 @@ function loadCurrentPost() {
   
   // Load and display model info
   chrome.storage.sync.get(['model'], (result) => {
-    const model = result.model || 'gpt-4o-mini';
+    const model = result.model || 'gpt-4o';
     document.getElementById('modelInfo').textContent = model;
   });
 }
