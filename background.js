@@ -64,12 +64,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 async function handleGenerateReplies(data) {
   const { postText, context, platform, intent, boldness } = data;
   
-  // Get user settings
+  // Get user settings and profile
   const settings = await chrome.storage.sync.get([
-    'voiceRules',
-    'exampleReplies',
-    'tone',
-    'themes',
+    'profiles',
+    'model',
     'apiKey'
   ]);
   
@@ -77,21 +75,31 @@ async function handleGenerateReplies(data) {
     throw new Error('API key not configured. Please add it in settings.');
   }
   
+  // Get profile for this platform
+  const profile = settings.profiles?.[platform] || {
+    voiceRules: ['Be direct and clear', 'No fluff'],
+    exampleReplies: ['Example reply'],
+    themes: ['General expertise'],
+    tone: 'confident'
+  };
+  
+  const model = settings.model || 'gpt-4o-mini';
+  
   // Build prompt
   const prompt = buildPrompt(
     postText,
     context,
     platform,
-    settings.voiceRules,
-    settings.exampleReplies,
-    settings.themes,
+    profile.voiceRules,
+    profile.exampleReplies,
+    profile.themes,
     intent,
     boldness,
-    settings.tone
+    profile.tone
   );
   
-  // Call AI API (using OpenAI for MVP)
-  const replies = await generateWithAI(settings.apiKey, prompt);
+  // Call AI API
+  const replies = await generateWithAI(settings.apiKey, prompt, model);
   
   return replies;
 }
@@ -151,7 +159,9 @@ Return ONLY valid JSON in this exact format:
   return { systemInstruction, userMessage };
 }
 
-async function generateWithAI(apiKey, prompt) {
+async function generateWithAI(apiKey, prompt, model = 'gpt-4o-mini') {
+  console.log(`FastEngage: Using model ${model}`);
+  
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -159,7 +169,7 @@ async function generateWithAI(apiKey, prompt) {
       'Authorization': `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: 'gpt-4o-mini',
+      model: model,
       messages: [
         { role: 'system', content: prompt.systemInstruction },
         { role: 'user', content: prompt.userMessage }

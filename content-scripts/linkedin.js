@@ -17,26 +17,27 @@
     
     const draftBtn = document.createElement('button');
     draftBtn.className = 'fastengage-draft-btn';
-    draftBtn.innerHTML = '⚡ Draft Reply';
+    draftBtn.innerHTML = '⚡';
+    draftBtn.title = 'Draft reply with FastEngage';
     draftBtn.style.cssText = `
-      background: #0a66c2;
-      color: white;
-      border: none;
-      border-radius: 16px;
-      padding: 6px 16px;
-      margin-left: 12px;
+      background: transparent;
+      color: #0a66c2;
+      border: 1px solid #0a66c2;
+      border-radius: 4px;
+      padding: 2px 6px;
+      margin-left: 8px;
       font-size: 14px;
-      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.2s;
+      line-height: 1;
     `;
     
     draftBtn.addEventListener('mouseenter', () => {
-      draftBtn.style.background = '#004182';
+      draftBtn.style.background = '#e8f3fc';
     });
     
     draftBtn.addEventListener('mouseleave', () => {
-      draftBtn.style.background = '#0a66c2';
+      draftBtn.style.background = 'transparent';
     });
     
     draftBtn.addEventListener('click', (e) => {

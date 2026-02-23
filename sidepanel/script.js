@@ -50,6 +50,12 @@ function loadCurrentPost() {
       displayPost(currentPost);
     }
   });
+  
+  // Load and display model info
+  chrome.storage.sync.get(['model'], (result) => {
+    const model = result.model || 'gpt-4o-mini';
+    document.getElementById('modelInfo').textContent = model;
+  });
 }
 
 // Display post preview
@@ -121,7 +127,7 @@ function displayReplies(replies) {
   
   replies.forEach((reply, index) => {
     const replyElement = document.getElementById(`reply${index}`);
-    replyElement.textContent = reply.reply;
+    replyElement.value = reply.reply; // Use .value for textarea
   });
   
   repliesContainer.style.display = 'block';
@@ -129,11 +135,10 @@ function displayReplies(replies) {
 
 // Copy reply to clipboard
 function copyReply(index) {
-  if (!currentReplies || !currentReplies[index]) {
-    return;
-  }
+  const replyElement = document.getElementById(`reply${index}`);
+  if (!replyElement) return;
   
-  const text = currentReplies[index].reply;
+  const text = replyElement.value; // Get value from textarea
   
   navigator.clipboard.writeText(text).then(() => {
     // Visual feedback
