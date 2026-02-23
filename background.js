@@ -165,25 +165,42 @@ async function generateWithAI(apiKey, prompt) {
         { role: 'user', content: prompt.userMessage }
       ],
       temperature: 0.8,
-      max_tokens: 500,
-      response_format: { type: "json_object" }
+      max_tokens: 500
     })
   });
   
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error?.message || 'API request failed');
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.error?.message || `API request failed: ${response.status}`);
   }
   
   const data = await response.json();
   const content = data.choices[0].message.content;
   
+  console.log('Raw AI response:', content);
+  
   // Parse the JSON response
   try {
-    const parsed = JSON.parse(content);
-    // Handle both array format and object with array property
-    return Array.isArray(parsed) ? parsed : parsed.replies;
+    // Try to extract JSON from the response (in case it has markdown or extra text)
+    const jsonMatch = content.match(/\[[\s\S]*\]/);
+    const jsonStr = jsonMatch ? jsonMatch[0] : content;
+    const parsed = JSON.parse(jsonStr);
+    
+    // Validate the response structure
+    if (!Array.isArray(parsed) || parsed.length !== 3) {
+      throw new Error('Response must be an array of 3 replies');
+    }
+    
+    // Validate each reply has the required fields
+    for (const reply of parsed) {
+      if (!reply.type || !reply.reply) {
+        throw new Error('Each reply must have "type" and "reply" fields');
+      }
+    }
+    
+    return parsed;
   } catch (e) {
-    throw new Error('Failed to parse AI response');
+    console.error('Failed to parse AI response:', content);
+    throw new Error(`Failed to parse AI response: ${e.message}`);
   }
 }
