@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Icons</title>
+</head>
+<body>
+  <h1>Icon Generator</h1>
+  <p>Click each button to download the icon:</p>
+  <button onclick="downloadIcon(16)">Download 16x16</button>
+  <button onclick="downloadIcon(32)">Download 32x32</button>
+  <button onclick="downloadIcon(48)">Download 48x48</button>
+  <button onclick="downloadIcon(128)">Download 128x128</button>
+  
+  <script>
+    function downloadIcon(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      
+      // Blue background
+      ctx.fillStyle = '#1d9bf0';
+      ctx.fillRect(0, 0, size, size);
+      
+      // White circle
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size/3, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Yellow inner circle (lightning effect)
+      ctx.fillStyle = '#ffd700';
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size/5, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Download
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `icon${size}.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+  </script>
+</body>
+</html>

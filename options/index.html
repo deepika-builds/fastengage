@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastEngage Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚙️ FastEngage Settings</h1>
+      <p class="subtitle">Configure your voice and authority themes</p>
+    </header>
+
+    <div class="settings-section">
+      <h2>API Configuration</h2>
+      <div class="form-group">
+        <label for="apiKey">OpenAI API Key *</label>
+        <input type="password" id="apiKey" placeholder="sk-...">
+        <p class="help-text">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI</a></p>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>Authority Themes</h2>
+      <p class="section-description">
+        What do you want to be known for? The AI will bias replies to reinforce these themes.
+      </p>
+      <div class="form-group">
+        <label for="theme1">Theme 1</label>
+        <input type="text" id="theme1" placeholder="e.g., AI-native product thinking">
+      </div>
+      <div class="form-group">
+        <label for="theme2">Theme 2</label>
+        <input type="text" id="theme2" placeholder="e.g., No-BS design clarity">
+      </div>
+      <div class="form-group">
+        <label for="theme3">Theme 3</label>
+        <input type="text" id="theme3" placeholder="e.g., Builders > talkers">
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>Voice Rules</h2>
+      <p class="section-description">
+        Define 5-10 rules that capture your writing style.
+      </p>
+      <div id="voiceRulesContainer"></div>
+      <button id="addRuleBtn" class="btn-secondary">+ Add Rule</button>
+    </div>
+
+    <div class="settings-section">
+      <h2>Example Replies</h2>
+      <p class="section-description">
+        Paste 5-10 of your best-performing replies so the AI can learn your style.
+      </p>
+      <div id="exampleRepliesContainer"></div>
+      <button id="addExampleBtn" class="btn-secondary">+ Add Example</button>
+    </div>
+
+    <div class="settings-section">
+      <h2>Tone</h2>
+      <div class="form-group">
+        <label for="toneSelect">Default Tone</label>
+        <select id="toneSelect">
+          <option value="neutral">Neutral</option>
+          <option value="confident">Confident</option>
+          <option value="sharp">Sharp</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="saveBtn" class="btn-primary">Save Settings</button>
+      <button id="resetBtn" class="btn-secondary">Reset to Defaults</button>
+    </div>
+
+    <div class="success-message" id="successMessage" style="display: none;">
+      ✓ Settings saved successfully!
+    </div>
+
+    <div class="error-message" id="errorMessage" style="display: none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FastEngage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚡ FastEngage</h1>
+      <div class="platform-badge" id="platformBadge">No post selected</div>
+    </header>
+
+    <div class="post-preview" id="postPreview">
+      <div class="post-preview-empty">
+        Click "Draft" on any post to start
+      </div>
+    </div>
+
+    <div class="controls" id="controls" style="display: none;">
+      <div class="control-group">
+        <label for="intentSelect">Intent</label>
+        <select id="intentSelect">
+          <option value="auto">Auto (High Engagement)</option>
+          <option value="agree">Strong Agreement</option>
+          <option value="disagree">Polite Disagreement</option>
+          <option value="nuance">Add Nuance</option>
+          <option value="question">Ask Question</option>
+          <option value="contrarian">Contrarian Take</option>
+          <option value="example">Add Example</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="boldnessSlider">Boldness: <span id="boldnessValue">5</span>/10</label>
+        <input type="range" id="boldnessSlider" min="1" max="10" value="5">
+      </div>
+
+      <button id="generateBtn" class="btn-primary">
+        Generate Replies
+      </button>
+    </div>
+
+    <div class="loading" id="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>Generating high-engagement replies...</p>
+    </div>
+
+    <div class="replies" id="repliesContainer" style="display: none;">
+      <div class="reply-card" data-type="punchy">
+        <div class="reply-header">
+          <span class="reply-type">Punchy</span>
+          <button class="btn-icon copy-btn" data-index="0" title="Copy">
+            📋
+          </button>
+        </div>
+        <div class="reply-text" id="reply0"></div>
+      </div>
+
+      <div class="reply-card" data-type="insightful">
+        <div class="reply-header">
+          <span class="reply-type">Insightful</span>
+          <button class="btn-icon copy-btn" data-index="1" title="Copy">
+            📋
+          </button>
+        </div>
+        <div class="reply-text" id="reply1"></div>
+      </div>
+
+      <div class="reply-card" data-type="bold">
+        <div class="reply-header">
+          <span class="reply-type">Bold</span>
+          <button class="btn-icon copy-btn" data-index="2" title="Copy">
+            📋
+          </button>
+        </div>
+        <div class="reply-text" id="reply2"></div>
+      </div>
+
+      <button id="regenerateBtn" class="btn-secondary">
+        🔄 Regenerate
+      </button>
+    </div>
+
+    <div class="error" id="errorContainer" style="display: none;">
+      <p id="errorMessage"></p>
+      <button id="dismissError" class="btn-secondary">Dismiss</button>
+    </div>
+
+    <footer>
+      <a href="#" id="settingsLink">⚙️ Settings</a>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
